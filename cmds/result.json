@@ -1,1 +1,7 @@
-{}
+{
+  "id": "init",
+  "cmd": "echo ready",
+  "returncode": 0,
+  "output": "ready\n",
+  "error": null
+}
