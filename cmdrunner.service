@@ -5,11 +5,11 @@ After=network.target
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/root/my-bot
-ExecStart=/usr/bin/python3 /root/my-bot/cmd_runner.py
+WorkingDirectory=/root/Shylo_Oleksandr
+ExecStart=/usr/bin/python3 /root/Shylo_Oleksandr/cmd_runner.py
 Restart=always
 RestartSec=10
-EnvironmentFile=/root/my-bot/.env
+EnvironmentFile=-/root/Shylo_Oleksandr/.env
 
 [Install]
 WantedBy=multi-user.target
