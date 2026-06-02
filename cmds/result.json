@@ -1,7 +1,7 @@
 {
-  "id": "ping-1",
-  "cmd": "echo pong && date",
+  "id": "fix-autodeploy-1",
+  "cmd": "cat > /root/autodeploy.sh <<'EOF'\n#!/bin/bash\ncd /root/Shylo_Oleksandr || exit 1\nBEFORE=$(git rev-parse HEAD)\ngit pull --rebase --autostash --quiet\nAFTER=$(git rev-parse HEAD)\nif [ \"$BEFORE\" != \"$AFTER\" ]; then\n  /root/Shylo_Oleksandr/venv/bin/pip install -q -r requirements.txt\n  systemctl restart mybot.service\n  systemctl restart cmdrunner.service\nfi\nEOF\nchmod +x /root/autodeploy.sh && echo done",
   "returncode": 0,
-  "output": "pong\nTue Jun  2 09:11:10 UTC 2026\n",
+  "output": "done\n",
   "error": null
 }
