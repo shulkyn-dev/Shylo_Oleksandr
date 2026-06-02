@@ -1,7 +1,7 @@
 {
-  "id": "test1",
-  "cmd": "uptime",
+  "id": "ping-1",
+  "cmd": "echo pong && date",
   "returncode": 0,
-  "output": " 09:03:27 up 15:28,  1 user,  load average: 0.00, 0.00, 0.00\n",
+  "output": "pong\nTue Jun  2 09:11:10 UTC 2026\n",
   "error": null
 }
