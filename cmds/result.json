@@ -1,7 +1,7 @@
 {
-  "id": "fix-autodeploy-1",
-  "cmd": "cat > /root/autodeploy.sh <<'EOF'\n#!/bin/bash\ncd /root/Shylo_Oleksandr || exit 1\nBEFORE=$(git rev-parse HEAD)\ngit pull --rebase --autostash --quiet\nAFTER=$(git rev-parse HEAD)\nif [ \"$BEFORE\" != \"$AFTER\" ]; then\n  /root/Shylo_Oleksandr/venv/bin/pip install -q -r requirements.txt\n  systemctl restart mybot.service\n  systemctl restart cmdrunner.service\nfi\nEOF\nchmod +x /root/autodeploy.sh && echo done",
+  "id": "check-bot-final",
+  "cmd": "systemctl status mybot.service --no-pager | head -15 && echo '---PACKAGES---' && /root/Shylo_Oleksandr/venv/bin/pip show beautifulsoup4 requests 2>&1 | grep -E 'Name|Version'",
   "returncode": 0,
-  "output": "done\n",
+  "output": "\u25cf mybot.service - Telegram Bot on Claude\n     Loaded: loaded (/etc/systemd/system/mybot.service; enabled; preset: enabled)\n     Active: active (running) since Tue 2026-06-02 09:13:04 UTC; 178ms ago\n   Main PID: 52461 (python)\n      Tasks: 1 (limit: 1110)\n     Memory: 7.3M (peak: 7.4M)\n        CPU: 73ms\n     CGroup: /system.slice/mybot.service\n             \u2514\u250052461 /root/Shylo_Oleksandr/venv/bin/python /root/Shylo_Oleksandr/bot.py\n\nJun 02 09:13:04 ubuntu-s-1vcpu-1gb-ams3 systemd[1]: Started mybot.service - Telegram Bot on Claude.\n---PACKAGES---\nName: beautifulsoup4\nVersion: 4.14.3\nName: requests\nVersion: 2.34.2\n",
   "error": null
 }
