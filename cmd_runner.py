@@ -27,6 +27,7 @@ def write_json(path, data):
 def git_commit_and_push(message):
     subprocess.run(["git", "add", "cmds/result.json"], cwd=REPO_DIR, check=False)
     subprocess.run(["git", "commit", "-m", message], cwd=REPO_DIR, check=False)
+    subprocess.run(["git", "pull", "--rebase", "--autostash"], cwd=REPO_DIR, check=False)
     subprocess.run(["git", "push"], cwd=REPO_DIR, check=False)
 
 

@@ -1,1 +1,1 @@
-{"id":"check-bot-1","cmd":"systemctl status mybot.service --no-pager | head -20 && echo '---PACKAGES---' && /root/my-bot/venv/bin/pip show beautifulsoup4 requests 2>&1 | grep -E 'Name|Version|not'"}
+{"id":"check-bot-2","cmd":"systemctl status mybot.service --no-pager | head -20 && echo '---PACKAGES---' && /root/my-bot/venv/bin/pip show beautifulsoup4 requests 2>&1 | grep -E 'Name|Version|WARNING'"}
