@@ -1,1 +1,1 @@
-{"id":"restart-cmdrunner-1","cmd":"systemctl restart cmdrunner.service"}
+{"id":"check-bot-3","cmd":"systemctl status mybot.service --no-pager | head -15 && echo '---' && /root/my-bot/venv/bin/pip show beautifulsoup4 requests 2>&1 | grep -E 'Name|Version|WARNING'"}
