@@ -2,6 +2,6 @@
   "id": "test1",
   "cmd": "uptime",
   "returncode": 0,
-  "output": " 06:18:07 up 12:43,  0 user,  load average: 1.23, 0.65, 0.27\n",
+  "output": " 09:03:27 up 15:28,  1 user,  load average: 0.00, 0.00, 0.00\n",
   "error": null
 }
