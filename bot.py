@@ -1,6 +1,6 @@
 import os, logging
 for v in ("HTTP_PROXY","HTTPS_PROXY","http_proxy","https_proxy","ALL_PROXY","all_proxy"):
-os.environ.pop(v, None)
+    os.environ.pop(v, None)
 from dotenv import load_dotenv
 import anthropic
 from telegram import Update
@@ -11,33 +11,33 @@ log = logging.getLogger(__name__)
 claude = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
 history: dict[int, list[dict]] = {}
 async def start(update, ctx):
-await update.message.reply_text("Привіт! Я бот на Claude. Питай будь-що.")
+    await update.message.reply_text("Привіт! Чим можу допомогти?")
 async def reset(update, ctx):
-history.pop(update.effective_user.id, None)
-await update.message.reply_text("Історію очищено.")
+    history.pop(update.effective_user.id, None)
+    await update.message.reply_text("Історію очищено.")
 async def chat(update, ctx):
-uid = update.effective_user.id
-history.setdefault(uid, []).append({"role": "user", "content": update.message.text})
-await ctx.bot.send_chat_action(chat_id=update.effective_chat.id, action="typing")
-try:
-resp = claude.messages.create(
-model="claude-opus-4-7", max_tokens=1024,
-system="Ти доброзичливий асистент. Відповідай коротко українською.",
-messages=history[uid],
-)
-text = resp.content[0].text
-history[uid].append({"role": "assistant", "content": text})
-history[uid] = history[uid][-20:]
-await update.message.reply_text(text)
-except Exception:
-log.exception("error")
-await update.message.reply_text("Помилка. Спробуй ще раз.")
+    uid = update.effective_user.id
+    history.setdefault(uid, []).append({"role": "user", "content": update.message.text})
+    await ctx.bot.send_chat_action(chat_id=update.effective_chat.id, action="typing")
+    try:
+        resp = claude.messages.create(
+            model="claude-opus-4-7", max_tokens=1024,
+            system="Ти доброзичливий асистент. Відповідай коротко українською.",
+            messages=history[uid],
+        )
+        text = resp.content[0].text
+        history[uid].append({"role": "assistant", "content": text})
+        history[uid] = history[uid][-20:]
+        await update.message.reply_text(text)
+    except Exception:
+        log.exception("error")
+        await update.message.reply_text("Помилка. Спробуй ще раз.")
 def main():
-app = ApplicationBuilder().token(os.environ["TELEGRAM_BOT_TOKEN"]).build()
-app.add_handler(CommandHandler("start", start))
-app.add_handler(CommandHandler("reset", reset))
-app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, chat))
-log.info("Bot started")
-app.run_polling()
+    app = ApplicationBuilder().token(os.environ["TELEGRAM_BOT_TOKEN"]).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("reset", reset))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, chat))
+    log.info("Bot started")
+    app.run_polling()
 if __name__ == "__main__":
-main()
+    main()
